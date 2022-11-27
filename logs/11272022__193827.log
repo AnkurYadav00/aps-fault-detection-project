@@ -1,0 +1,12 @@
+[2022-11-27 19:38:28,298] [20 INFO - Exporting collection data as pandas dataframe]
+[2022-11-27 19:38:28,299] [17 INFO - Reading data from database: aps and sensor]
+[2022-11-27 19:38:31,711] [19 INFO - Found columns: Index(['_id', 'class', 'aa_000', 'ab_000', 'ac_000', 'ad_000', 'ae_000',
+       'af_000', 'ag_000', 'ag_001',
+       ...
+       'ee_002', 'ee_003', 'ee_004', 'ee_005', 'ee_006', 'ee_007', 'ee_008',
+       'ee_009', 'ef_000', 'eg_000'],
+      dtype='object', length=172)]
+[2022-11-27 19:38:31,711] [21 INFO - Dropping column : _id]
+[2022-11-27 19:38:31,912] [23 INFO - Row and column in df: (36188, 171)]
+[2022-11-27 19:38:31,912] [27 INFO - Save data in feature store]
+[2022-11-27 19:38:32,532] [31 INFO - Create feature store folder if not available]

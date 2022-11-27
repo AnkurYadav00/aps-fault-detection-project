@@ -1,0 +1,16 @@
+[2022-11-27 19:45:11,328] [20 INFO - Exporting collection data as pandas dataframe]
+[2022-11-27 19:45:11,329] [17 INFO - Reading data from database: aps and sensor]
+[2022-11-27 19:45:14,680] [19 INFO - Found columns: Index(['_id', 'class', 'aa_000', 'ab_000', 'ac_000', 'ad_000', 'ae_000',
+       'af_000', 'ag_000', 'ag_001',
+       ...
+       'ee_002', 'ee_003', 'ee_004', 'ee_005', 'ee_006', 'ee_007', 'ee_008',
+       'ee_009', 'ef_000', 'eg_000'],
+      dtype='object', length=172)]
+[2022-11-27 19:45:14,680] [21 INFO - Dropping column : _id]
+[2022-11-27 19:45:14,902] [23 INFO - Row and column in df: (36188, 171)]
+[2022-11-27 19:45:14,903] [27 INFO - Save data in feature store]
+[2022-11-27 19:45:15,421] [31 INFO - Create feature store folder if not available]
+[2022-11-27 19:45:15,421] [36 INFO - Save df to feature store folder]
+[2022-11-27 19:45:17,813] [40 INFO - split dataset into train and test set]
+[2022-11-27 19:45:18,365] [47 INFO - Save df to feature store folder]
+[2022-11-27 19:45:20,458] [60 INFO - Data ingestion artifact: DataIngestionArtifact(feature_store_file_path='/config/workspace/artifact/11272022__194511.log/data_ingestion/feature_store/sensor.csv', train_file_path='/config/workspace/artifact/11272022__194511.log/data_ingestion/dataset/train.csv', test_file_path='/config/workspace/artifact/11272022__194511.log/data_ingestion/dataset/test.csv')]
