@@ -1,0 +1,8 @@
+[2022-12-03 15:14:24,642] [20 INFO - Exporting collection data as pandas dataframe]
+[2022-12-03 15:14:24,642] [17 INFO - Reading data from database: aps and sensor]
+[2022-12-03 15:14:24,644] [19 INFO - Found columns: Index([], dtype='object')]
+[2022-12-03 15:14:24,645] [23 INFO - Row and column in df: (0, 0)]
+[2022-12-03 15:14:24,645] [27 INFO - Save data in feature store]
+[2022-12-03 15:14:24,645] [31 INFO - Create feature store folder if not available]
+[2022-12-03 15:14:24,645] [36 INFO - Save df to feature store folder]
+[2022-12-03 15:14:24,647] [40 INFO - split dataset into train and test set]
