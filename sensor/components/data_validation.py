@@ -1,12 +1,12 @@
-from sensor.entity import artifact_entity,config_entity,artifact_entity
+from sensor.entity import artifact_entity,config_entity
 from sensor.exception import SensorException
 from sensor.logger import logging
 from typing import Optional
 import os,sys
 import pandas as pd
-import yaml
 from sensor import utils
 import numpy as np
+from scipy.stats import ks_2samp
 
 
 class DataValidation:
@@ -22,7 +22,7 @@ class DataValidation:
         except Exception as e:
             SensorException(e, sys)
 
-    def drop_missing_values_columns(self, df:pd.DataFrame, report_key_name:str)->pd.DataFrame:
+    def drop_missing_values_columns(self, df:pd.DataFrame, report_key_name:str)->Optional[pd.DataFrame]:
         """
         this function will drop columns which contains missing values more than specified threshold
         
@@ -36,10 +36,10 @@ class DataValidation:
             null_report = df.isna().sum()/df.shape[0]
             # selecting column names containing null values
             logging.info(f"selecting column name which contains null above to {threshold}")
-            drop_column_names = null_report[null_report>0.3].index
+            drop_column_names = null_report[null_report>threshold].index
 
             logging.info(f"Columns to drop: {list(drop_column_names)}")
-            validation_error[report_key_name] = list(drop_column_names)
+            self.validation_error[report_key_name] = list(drop_column_names)
             df.drop(list(drop_column_names),axis=1,inplace=True)
             
             # return None is no columns left
@@ -51,14 +51,16 @@ class DataValidation:
         
     def is_required_columns_exists(self, base_df:pd.DataFrame,current_df:pd.DataFrame, report_key_name:str)->bool:
         try:
+            logging.info("is_required_columns_exists execution started")
             base_columns = base_df.columns
             current_columns = current_df.columns
-
+            
             missing_columns = []
             for base_column in base_columns:
                 if base_column not in current_columns:
                     logging.info(f"Column: [{base_column} is not available.]")
                     missing_columns.append(base_column)
+            
             
             if len(missing_columns) > 0:
                 self.validation_error[report_key_name] = missing_columns
@@ -82,18 +84,19 @@ class DataValidation:
 
                 if same_distribution.pvalue >0.05:
                     # we are accepting null hypothesis
-                    drift_report[base_column]-{
+                    drift_report[base_column]={
                         "pvalues":float(same_distribution.pvalue),
                         "same_distribution": True,
                     }
                 else:
-                    drift_report[base_column]-{
+                    drift_report[base_column]={
                         "pvalues":float(same_distribution.pvalue),
                         "same_distribution":False
                     }
                     # Different Distribution
 
             self.validation_error[report_key_name] = drift_report
+            logging.info(f"drift data for all columns collected")
         except Exception as e:
             SensorException(e, sys)
 
@@ -102,6 +105,8 @@ class DataValidation:
             logging.info(f"Reading base Dataframe")
             base_df = pd.read_csv(self.data_validation_config.base_file_path)
             base_df.replace({"na":np.NAN},inplace= True)
+            logging.info(f"Replace na value in base df")
+            #base_df has na as null
             logging.info(f"Drop null values columns from base df")
             base_df = self.drop_missing_values_columns(df=base_df, report_key_name="missing_values_within_base_dataset")
 
@@ -124,6 +129,8 @@ class DataValidation:
             train_df_columns_status = self.is_required_columns_exists(base_df=base_df, current_df=train_df,report_key_name="missing_columns_within_train_dataset")
             logging.info(f"Is all required columns present in test df")
             test_df_columns_status = self.is_required_columns_exists(base_df=base_df,current_df=test_df,report_key_name="missing_columns_within_test_dataset")
+
+            logging.info(f"Status :{train_df_columns_status} {test_df_columns_status}")
 
             if train_df_columns_status:
                 logging.info(f"As all column are available in train df hence detecting data drift")
