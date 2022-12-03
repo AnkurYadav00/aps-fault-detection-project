@@ -1,0 +1,22 @@
+[2022-12-03 19:30:18,183] [20 INFO - Exporting collection data as pandas dataframe]
+[2022-12-03 19:30:18,183] [17 INFO - Reading data from database: aps and sensor]
+[2022-12-03 19:30:21,506] [19 INFO - Found columns: Index(['_id', 'class', 'aa_000', 'ab_000', 'ac_000', 'ad_000', 'ae_000',
+       'af_000', 'ag_000', 'ag_001',
+       ...
+       'ee_002', 'ee_003', 'ee_004', 'ee_005', 'ee_006', 'ee_007', 'ee_008',
+       'ee_009', 'ef_000', 'eg_000'],
+      dtype='object', length=172)]
+[2022-12-03 19:30:21,506] [21 INFO - Dropping column : _id]
+[2022-12-03 19:30:21,725] [23 INFO - Row and column in df: (36188, 171)]
+[2022-12-03 19:30:21,725] [27 INFO - Save data in feature store]
+[2022-12-03 19:30:22,263] [31 INFO - Create feature store folder if not available]
+[2022-12-03 19:30:22,263] [36 INFO - Save df to feature store folder]
+[2022-12-03 19:30:24,596] [40 INFO - split dataset into train and test set]
+[2022-12-03 19:30:25,108] [47 INFO - Save df to feature store folder]
+[2022-12-03 19:30:27,164] [60 INFO - Data ingestion artifact: DataIngestionArtifact(feature_store_file_path='/config/workspace/artifact/12032022__193018.log/data_ingestion/feature_store/sensor.csv', train_file_path='/config/workspace/artifact/12032022__193018.log/data_ingestion/dataset/train.csv', test_file_path='/config/workspace/artifact/12032022__193018.log/data_ingestion/dataset/test.csv')]
+[2022-12-03 19:30:27,531] [18 INFO - >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Data Validation <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<]
+[2022-12-03 19:30:27,531] [102 INFO - Reading base Dataframe]
+[2022-12-03 19:30:30,257] [105 INFO - Drop null values columns from base df]
+[2022-12-03 19:30:31,129] [38 INFO - selecting column name which contains null above to 0.2]
+[2022-12-03 19:30:31,129] [41 INFO - Columns to drop: ['ab_000', 'bk_000', 'bl_000', 'bm_000', 'bn_000', 'bo_000', 'bp_000', 'bq_000', 'br_000', 'cr_000']]
+[2022-12-03 19:30:31,195] [108 INFO - Reading train dataframe]

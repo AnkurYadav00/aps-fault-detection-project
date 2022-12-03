@@ -1,0 +1,24 @@
+[2022-12-03 19:32:37,879] [20 INFO - Exporting collection data as pandas dataframe]
+[2022-12-03 19:32:37,879] [17 INFO - Reading data from database: aps and sensor]
+[2022-12-03 19:32:41,236] [19 INFO - Found columns: Index(['_id', 'class', 'aa_000', 'ab_000', 'ac_000', 'ad_000', 'ae_000',
+       'af_000', 'ag_000', 'ag_001',
+       ...
+       'ee_002', 'ee_003', 'ee_004', 'ee_005', 'ee_006', 'ee_007', 'ee_008',
+       'ee_009', 'ef_000', 'eg_000'],
+      dtype='object', length=172)]
+[2022-12-03 19:32:41,236] [21 INFO - Dropping column : _id]
+[2022-12-03 19:32:41,464] [23 INFO - Row and column in df: (36188, 171)]
+[2022-12-03 19:32:41,465] [27 INFO - Save data in feature store]
+[2022-12-03 19:32:42,003] [31 INFO - Create feature store folder if not available]
+[2022-12-03 19:32:42,003] [36 INFO - Save df to feature store folder]
+[2022-12-03 19:32:44,450] [40 INFO - split dataset into train and test set]
+[2022-12-03 19:32:44,991] [47 INFO - Save df to feature store folder]
+[2022-12-03 19:32:47,104] [60 INFO - Data ingestion artifact: DataIngestionArtifact(feature_store_file_path='/config/workspace/artifact/12032022__193237.log/data_ingestion/feature_store/sensor.csv', train_file_path='/config/workspace/artifact/12032022__193237.log/data_ingestion/dataset/train.csv', test_file_path='/config/workspace/artifact/12032022__193237.log/data_ingestion/dataset/test.csv')]
+[2022-12-03 19:32:47,477] [18 INFO - >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Data Validation <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<]
+[2022-12-03 19:32:47,477] [102 INFO - Reading base Dataframe]
+[2022-12-03 19:32:50,257] [105 INFO - Drop null values columns from base df]
+[2022-12-03 19:32:51,166] [38 INFO - selecting column name which contains null above to 0.2]
+[2022-12-03 19:32:51,167] [41 INFO - Columns to drop: ['ab_000', 'bk_000', 'bl_000', 'bm_000', 'bn_000', 'bo_000', 'bp_000', 'bq_000', 'br_000', 'cr_000']]
+[2022-12-03 19:32:51,229] [108 INFO - Reading train dataframe]
+[2022-12-03 19:32:51,597] [110 INFO - Reading Test dataframe]
+[2022-12-03 19:32:51,695] [113 INFO - Drop null values columns from train df]

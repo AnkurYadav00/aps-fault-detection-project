@@ -22,7 +22,7 @@ class DataValidation:
         except Exception as e:
             SensorException(e, sys)
 
-    def drop_missing_calues_columns(self, df:pd.DataFrame, report_key_name:str)->pd.DataFrame:
+    def drop_missing_values_columns(self, df:pd.DataFrame, report_key_name:str)->pd.DataFrame:
         """
         this function will drop columns which contains missing values more than specified threshold
         
@@ -49,21 +49,23 @@ class DataValidation:
         except Exception as e:
             SensorException(e, sys)
         
-        def is_required_columns_exists(self, base_df:pd.DataFrame,current_df:pd.DataFrame, report_key_name:str)->bool:
-            try:
-                base_columns = base_df.columns
-                current_columns = current_df.columns
-                for base_column in base_columns:
-                    if base_column not in current_columns:
-                        logging.info(f"Column: [{base_column} is not available.]")
-                        missing_columns.append(base_column)
-                
-                if len(missing_columns) > 0:
-                    self.validation_error[report_key_name] = missing_columns
-                    return False
-                return True
-            except Exception as e:
-                SensorException(e,sys)
+    def is_required_columns_exists(self, base_df:pd.DataFrame,current_df:pd.DataFrame, report_key_name:str)->bool:
+        try:
+            base_columns = base_df.columns
+            current_columns = current_df.columns
+
+            missing_columns = []
+            for base_column in base_columns:
+                if base_column not in current_columns:
+                    logging.info(f"Column: [{base_column} is not available.]")
+                    missing_columns.append(base_column)
+            
+            if len(missing_columns) > 0:
+                self.validation_error[report_key_name] = missing_columns
+                return False
+            return True
+        except Exception as e:
+            SensorException(e,sys)
 
     def data_drift(self,base_df:pd.DataFrame,current_df:pd.DataFrame, report_key_name:str):
         try:
@@ -101,17 +103,17 @@ class DataValidation:
             base_df = pd.read_csv(self.data_validation_config.base_file_path)
             base_df.replace({"na":np.NAN},inplace= True)
             logging.info(f"Drop null values columns from base df")
-            base_df = self.drop_missing_calues_columns(df=base_df)
+            base_df = self.drop_missing_values_columns(df=base_df, report_key_name="missing_values_within_base_dataset")
 
             logging.info(f"Reading train dataframe")
-            train_df = self.read_csv(self.data_ingestion_artifact.train_file_path)
+            train_df = pd.read_csv(self.data_ingestion_artifact.train_file_path)
             logging.info(f"Reading Test dataframe")
-            test_df = self.read_csv(self.data_ingestion_artifact.test_file_path)
+            test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
 
             logging.info(f"Drop null values columns from train df")
-            train_df = self.drop_missing_values_columns(df=train_df)
+            train_df = self.drop_missing_values_columns(df=train_df,report_key_name="missing_values_within_train_dataset")
             logging.info(f"Drop null values columns from test df")
-            test_df = self.drop_missing_calues_columns(df=test_df)
+            test_df = self.drop_missing_values_columns(df=test_df,report_key_name="missing_values_within_test_dataset")
 
             exclude_columns = ["class"]
             base_df = utils.convert_columns_float(df=base_df, exclude_columns=exclude_columns)
